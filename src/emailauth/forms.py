@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth import authenticate
+from django.contrib.auth.forms import PasswordResetForm as BasePasswordResetForm
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from emailauth import settings
@@ -87,7 +88,7 @@ class UserChangeForm(forms.ModelForm):
     class Meta:
         model = User
 
-class PasswordResetForm(forms.Form):
+class PasswordResetForm(BasePasswordResetForm):
     def __init__(self, *args, **kwargs):
         super(PasswordResetForm, self).__init__(*args, **kwargs)
         self.fields['email'].max_length = settings.MAXIMUM_EMAIL_LENGTH
